@@ -1,0 +1,79 @@
+/* =========================
+   Integration Fest: Root Colors
+   ========================= */
+
+:root {
+    /* Primary palette */
+    --primary: #667eea;
+    --secondary: #764ba2;
+    --accent: #f093fb;
+    --teal: #4facfe;
+    --light: #8892b0;
+    --light-alt: #b8c5ff;
+    --tagline: rgba(184, 197, 255, 0.7);
+
+    /* Card effects */
+    --card-bg: rgba(255, 255, 255, 0.02);
+    --card-bg-hover: rgba(255, 255, 255, 0.04);
+    --card-border: rgba(102, 126, 234, 0.15);
+    --card-border-hover: rgba(102, 126, 234, 0.3);
+    --card-shadow: rgba(102, 126, 234, 0.2);
+
+    /* Loading symbol & rays */
+    --ray-1: rgba(102, 126, 234, 0.8);
+    --ray-2: rgba(240, 147, 251, 0.8);
+    --ray-3: rgba(79, 172, 254, 0.8);
+
+    /* Cursor */
+    --cursor-border: rgba(102, 126, 234, 0.8);
+    --cursor-hover: rgba(240, 147, 251, 1);
+    --cursor-trail: rgba(102, 126, 234, 0.6);
+}
+
+/* Integration Equation Colors */
+.eq-primary { color: var(--primary); }
+.eq-secondary { color: var(--secondary); }
+.eq-accent { color: var(--accent); }
+.eq-teal { color: var(--teal); }
+.eq-light { color: var(--light); }
+
+/* Example gradient usage */
+.integration-symbol-load {
+    font-size: 8rem;
+    font-family: 'Times New Roman', serif;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: symbolGlow 2s ease-in-out infinite;
+}
+
+.result-text {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.feature-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    backdrop-filter: blur(10px);
+}
+
+.feature-card:hover {
+    background: var(--card-bg-hover);
+    border-color: var(--card-border-hover);
+    box-shadow: 0 10px 40px var(--card-shadow);
+}
+
+.custom-cursor {
+    border: 2px solid var(--cursor-border);
+}
+
+.custom-cursor.hover {
+    border-color: var(--cursor-hover);
+    background: rgba(102, 126, 234, 0.1);
+}
+
+.custom-cursor-trail {
+    background: var(--cursor-trail);
+}

@@ -1,9 +1,9 @@
 /* --- script.js --- */
 document.addEventListener('DOMContentLoaded', () => {
 
-    const canvas = document.getElementById('flowCanvas'); 
+    const canvas = document.getElementById('flowCanvas'); // Updated ID
     const ctx = canvas.getContext('2d');
-    const nodes = document.querySelectorAll('.flow-node'); 
+    const nodes = document.querySelectorAll('.flow-node'); // Updated selector
     const toggle = document.getElementById('themeToggle');
     const body = document.body;
 

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Integration Architects | Integration Fest</title>
+  
+  <link rel="stylesheet" href="global.css">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="dark-theme">
+    
+  <canvas id="flowCanvas"></canvas>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo" onclick="window.location.href='/'">Integration Fest</div>
+      
+      <div class="theme-toggle-container">
+        <label class="toggle-switch">
+            <input type="checkbox" id="themeToggle">
+            <span class="slider"></span>
+        </label>
+        <span class="toggle-label">SYNCHRONIZE</span>
+      </div>
+      
+      <div class="nav-toggle" id="navToggle"><span></span><span></span><span></span></div>
+      <ul class="nav-menu" id="navMenu">
+        <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+        <li class="nav-item"><a href="/#events" class="nav-link">Events</a></li>
+        <li class="nav-item"><a href="/gallery/" class="nav-link">Gallery</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="flow-wrapper">
+    
+    <header class="flow-header">
+      <p class="header-prompt">// INIT: Integration_Flow_v2.0 </p>
+      <h1 class="master-title">CONTINUOUS INTEGRATION & DATA FLOW TEAM</h1>
+    </header>
+
+    <div class="node-grid">
+
+      <div class="flow-node" data-node-id="0">
+        <div class="node-profile">
+          <div class="node-img-container">
+            <img src="https://placehold.co/100x100/1a1a1a/FFF?text=AR" alt="Anant Raj" class="node-img">
+          </div>
+          <div><h3 class="node-name">Avigyan Chakraborty</h3><p class="node-tag">Integration Flow Developer</p></div>
+        </div>
+        <div class="data-pulse">
+            <p>"Building the future, one elegant line of code at a time."</p>
+            <p class="node-status status-success">// STATUS: INTEGRATION COMPLETE</p>
+        </div>
+      </div>
+
+      <div class="flow-node" data-node-id="1">
+        <div class="node-profile">
+          <div class="node-img-container">
+            <img src="https://placehold.co/100x100/1a1a1a/FFF?text=TR" alt="Tanmay Rai" class="node-img">
+          </div>
+          <div><h3 class="node-name">Tanmay Rai</h3><p class="node-tag">Integration Flow Developer</p></div>
+        </div>
+        <div class="data-pulse">
+            <p>"The best way to predict the future is to code it."</p>
+            <p class="node-status status-warning">// STATUS: PENDING INTEGRATION</p>
+        </div>
+      </div>
+
+      <div class="flow-node" data-node-id="2">
+        <div class="node-profile">
+          <div class="node-img-container">
+            <img src="https://placehold.co/100x100/1a1a1a/FFF?text=AC" alt="Avigyan Chakraborty" class="node-img">
+          </div>
+          <div><h3 class="node-name">Anant Raj</h3><p class="node-tag">Integration Flow Developer</p></div>
+        </div>
+        <div class="data-pulse">
+            <p>"Debugging is just detective work in a digital landscape."</p>
+            <p class="node-status status-success">// STATUS: ALL TESTS INTEGRATED</p>
+        </div>
+      </div>
+      
+      <div class="flow-node" data-node-id="3">
+        <div class="node-profile">
+          <div class="node-img-container">
+            <img src="https://placehold.co/100x100/1a1a1a/FFF?text=JC" alt="Jishnu Chaudhari" class="node-img">
+          </div>
+          <div><h3 class="node-name">Jishnu Chaudhari</h3><p class="node-tag">Integration Flow Developer</p></div>
+        </div>
+        <div class="data-pulse">
+            <p>"Solving complexity through minimalist design principles."</p>
+            <p class="node-status status-warning">// STATUS: MERGE CONFLICT</p>
+        </div>
+      </div>
+
+       <div class="flow-node" data-node-id="4">
+        <div class="node-profile">
+          <div class="node-img-container">
+            <img src="https://placehold.co/100x100/1a1a1a/FFF?text=HM" alt="Himadri Mandal" class="node-img">
+          </div>
+          <div><h3 class="node-name">Himadri Mandal</h3><p class="node-tag">Integration Flow Developer</p></div>
+        </div>
+        <div class="data-pulse">
+            <p>"The only source of knowledge is experience. Time to build."</p>
+            <p class="node-status status-success">// STATUS: COMPILATION SUCCESS</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <section class="footer-section">
+    <div class="footer-bottom">
+      <div class="footer-logo">INTEGRATION FEST 2026</div>
+      <p style="text-align: center; color: var(--theme-text); margin-top:10px;">
+        Integration Flow Status: **Synchronized** | Last Check: 2.3 seconds ago
+      </p>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>

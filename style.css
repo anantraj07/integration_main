@@ -38,7 +38,7 @@ body {
 }
 
 /* Canvas */
-#flowCanvas {
+#flowCanvas { /* Updated ID reference */
     position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; 
     pointer-events: none; opacity: 1; 
 }
@@ -122,7 +122,7 @@ input:checked + .slider:before {
     max-width: 1400px; margin: 0 auto; padding: 0 20px;
 }
 
-.flow-node { 
+.flow-node { /* Updated class name */
     width: 300px;
     height: 400px;
     background: var(--theme-card-bg);
@@ -137,7 +137,7 @@ input:checked + .slider:before {
 }
 
 /* High-Impact Hover */
-.flow-node:hover { 
+.flow-node:hover { /* Updated class name */
     transform: perspective(1000px) translateZ(40px) translateY(-20px) scale(1.05); 
     box-shadow: 0 0 50px var(--accent-secondary), 0 0 100px var(--accent-primary);
     border-color: var(--accent-secondary);
@@ -152,7 +152,7 @@ input:checked + .slider:before {
     transition: all 0.5s ease;
 }
 
-.flow-node:hover .node-img-container { 
+.flow-node:hover .node-img-container { /* Updated class name */
     border-color: var(--accent-secondary);
     transform: rotateY(10deg);
 }
@@ -162,7 +162,7 @@ input:checked + .slider:before {
     transition: filter 0.5s;
 }
 
-.flow-node:hover .node-img { 
+.flow-node:hover .node-img { /* Updated class name */
     filter: grayscale(0%) brightness(1); 
 }
 

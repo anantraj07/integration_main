@@ -1,9 +1,9 @@
-/* --- quantum-web.js (SYNCHRONIZED EFFECTS) --- */
+/* --- script.js --- */
 document.addEventListener('DOMContentLoaded', () => {
 
-    const canvas = document.getElementById('quantumCanvas');
+    const canvas = document.getElementById('flowCanvas'); // Updated ID
     const ctx = canvas.getContext('2d');
-    const nodes = document.querySelectorAll('.quantum-node');
+    const nodes = document.querySelectorAll('.flow-node'); // Updated selector
     const toggle = document.getElementById('themeToggle');
     const body = document.body;
 
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
-    // --- Particle Class (Unchanged for physics, but colors are dynamic) ---
+    // --- Particle Class ---
     class Particle {
         constructor(isDev, x, y, id) {
             this.x = x || Math.random() * width;
@@ -91,8 +91,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Main Animation Loop (Reads dynamic colors every frame) ---
     let hoveredNodeId = -1;
 
-    function animateQuantumWeb() {
-        requestAnimationFrame(animateQuantumWeb);
+    function animateIntegrationFlow() { // Updated function name
+        requestAnimationFrame(animateIntegrationFlow);
         const colors = getThemeColors();
 
         // Clear canvas with a trail effect based on the current theme background
@@ -156,9 +156,9 @@ document.addEventListener('DOMContentLoaded', () => {
         node.addEventListener('mouseleave', () => { hoveredNodeId = -1; });
     });
 
-    // Start the quantum web
+    // Start the integration flow
     createParticles();
-    animateQuantumWeb();
+    animateIntegrationFlow();
     
     // Navbar Toggle (Standard)
     const navToggle = document.getElementById('navToggle');

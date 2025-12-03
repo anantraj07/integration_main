@@ -1,13 +1,13 @@
-/* --- quantum-flow.css --- */
+/* --- style.css --- */
 
 /* --- 1. THEME VARIABLES (Dark and Light) --- */
 :root {
-    /* DARK THEME (Default) - Based on Integration Fest Neon/Tech Aesthetic */
+    /* DARK THEME (Default) - Integration Fest Neon/Tech Aesthetic */
     --theme-bg: #0a0a0a;
     --theme-text: #e8eaf6;
     --theme-card-bg: rgba(10, 10, 10, 0.5);
     
-    --accent-primary: #667eea; /* Quantum Blue */
+    --accent-primary: #667eea; /* Integration Blue */
     --accent-secondary: #f093fb; /* Neon Pink */
 
     --status-success: #00e676; 
@@ -34,11 +34,11 @@ body {
     color: var(--theme-text);
     font-family: 'Courier New', Courier, monospace; 
     overflow-x: hidden;
-    transition: background-color 0.5s, color 0.5s; /* Smooth theme transition */
+    transition: background-color 0.5s, color 0.5s; 
 }
 
-/* Canvas (Must be fixed and behind everything) */
-#quantumCanvas {
+/* Canvas */
+#flowCanvas {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; 
     pointer-events: none; opacity: 1; 
 }
@@ -51,7 +51,6 @@ body {
 }
 .header-prompt { color: var(--accent-primary); }
 @keyframes typing { from { width: 0 } to { width: 100% } }
-
 
 /* --- 3. CUSTOM TOGGLE SWITCH STYLES --- */
 .theme-toggle-container {
@@ -117,13 +116,13 @@ input:checked + .slider:before {
 }
 
 
-/* --- 4. QUANTUM NODE (The Cards) --- */
+/* --- 4. FLOW NODE (The Cards) --- */
 .node-grid {
     display: flex; flex-wrap: wrap; justify-content: center; gap: 60px 40px;
     max-width: 1400px; margin: 0 auto; padding: 0 20px;
 }
 
-.quantum-node {
+.flow-node { /* Updated class name */
     width: 300px;
     height: 400px;
     background: var(--theme-card-bg);
@@ -138,7 +137,7 @@ input:checked + .slider:before {
 }
 
 /* High-Impact Hover */
-.quantum-node:hover {
+.flow-node:hover { /* Updated class name */
     transform: perspective(1000px) translateZ(40px) translateY(-20px) scale(1.05); 
     box-shadow: 0 0 50px var(--accent-secondary), 0 0 100px var(--accent-primary);
     border-color: var(--accent-secondary);
@@ -153,7 +152,7 @@ input:checked + .slider:before {
     transition: all 0.5s ease;
 }
 
-.quantum-node:hover .node-img-container {
+.flow-node:hover .node-img-container { /* Updated class name */
     border-color: var(--accent-secondary);
     transform: rotateY(10deg);
 }
@@ -163,7 +162,7 @@ input:checked + .slider:before {
     transition: filter 0.5s;
 }
 
-.quantum-node:hover .node-img {
+.flow-node:hover .node-img { /* Updated class name */
     filter: grayscale(0%) brightness(1); 
 }
 

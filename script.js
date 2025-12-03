@@ -1,9 +1,9 @@
 /* --- script.js --- */
 document.addEventListener('DOMContentLoaded', () => {
 
-    const canvas = document.getElementById('flowCanvas'); // Updated ID
+    const canvas = document.getElementById('flowCanvas'); 
     const ctx = canvas.getContext('2d');
-    const nodes = document.querySelectorAll('.flow-node'); // Updated selector
+    const nodes = document.querySelectorAll('.flow-node'); 
     const toggle = document.getElementById('themeToggle');
     const body = document.body;
 
@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Main Animation Loop (Reads dynamic colors every frame) ---
     let hoveredNodeId = -1;
 
-    function animateIntegrationFlow() { // Updated function name
+    function animateIntegrationFlow() { 
         requestAnimationFrame(animateIntegrationFlow);
         const colors = getThemeColors();
 

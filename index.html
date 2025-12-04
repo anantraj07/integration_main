@@ -7,7 +7,6 @@
   <title>The Integration Architects | Integration Fest</title>
   
   <link rel="stylesheet" href="global.css">
-  
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -24,14 +23,27 @@
             <input type="checkbox" id="themeToggle">
             <span class="slider"></span>
         </label>
-        <span class="toggle-label">SYNCHRONIZE</span>
+        <span class="toggle-label">SYNC</span>
       </div>
       
       <div class="nav-toggle" id="navToggle"><span></span><span></span><span></span></div>
       <ul class="nav-menu" id="navMenu">
         <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
-        <li class="nav-item"><a href="/#events" class="nav-link">Events</a></li>
+        <li class="nav-item nav-dropdown">
+            <a href="#" class="nav-link">Tech</a>
+            <div class="dropdown-content">
+                <a href="#">SPARQ</a><a href="#">MTRP</a><a href="#">Integration Bee</a>
+            </div>
+        </li>
+        <li class="nav-item"><a href="#" class="nav-link">Cultural</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">Sports</a></li>
         <li class="nav-item"><a href="/gallery/" class="nav-link">Gallery</a></li>
+        <li class="nav-item nav-dropdown">
+            <a href="#" class="nav-link">About</a>
+            <div class="dropdown-content">
+                <a href="#">Venue</a><a href="#">Sponsors</a><a href="#">Contact</a>
+            </div>
+        </li>
       </ul>
     </div>
   </nav>
@@ -113,14 +125,34 @@
     </div>
   </div>
 
-  <section class="footer-section">
+  <footer class="footer-section">
+    <div class="footer-content">
+        <div class="footer-col">
+            <h4>About ISI</h4>
+            <p>The Indian Statistical Institute, Kolkata, stands at the forefront of research and education in statistics, mathematics, and data-driven disciplines.</p>
+        </div>
+        <div class="footer-col">
+            <h4>Contact & Venue</h4>
+            <p>203 Barrackpore Trunk Road, Kolkata, WB 700108, India</p>
+            <p>Email: helpdesk@integrationfest.in</p>
+            <p>Instagram: <a href="#" target="_blank">@integrationfest</a></p>
+        </div>
+        <div class="footer-col">
+            <h4>Events</h4>
+            <ul>
+                <li><a href="#">Tech Fest (SPARQ, MTRP)</a></li>
+                <li><a href="#">Cultural Fest (MUN, Alaap)</a></li>
+                <li><a href="#">Sports Fest (Cricket, Football)</a></li>
+            </ul>
+        </div>
+    </div>
     <div class="footer-bottom">
       <div class="footer-logo">INTEGRATION FEST 2026</div>
       <p style="text-align: center; color: var(--theme-text); margin-top:10px;">
         Integration Flow Status: **Synchronized** | Last Check: 2.3 seconds ago
       </p>
     </div>
-  </section>
+  </footer>
 
   <script src="script.js"></script>
 </body>

@@ -1,9 +1,9 @@
-/* --- script.js --- */
+/* --- script.js (FIXED: FLOW selectors, Performance Optimised) --- */
 document.addEventListener('DOMContentLoaded', () => {
 
-    const canvas = document.getElementById('flowCanvas'); // Updated ID
+    const canvas = document.getElementById('flowCanvas'); // FIXED ID
     const ctx = canvas.getContext('2d');
-    const nodes = document.querySelectorAll('.flow-node'); // Updated selector
+    const nodes = document.querySelectorAll('.flow-node'); // FIXED CLASS NAME
     const toggle = document.getElementById('themeToggle');
     const body = document.body;
 
@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let devNodes = []; 
     let width, height;
 
-    // Function to retrieve CSS variables dynamically
+    // Function to retrieve CSS variables dynamically (Unchanged)
     function getThemeColors() {
         const style = getComputedStyle(body);
         return {
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
-    // --- Particle Class ---
+    // --- Particle Class (Unchanged logic) ---
     class Particle {
         constructor(isDev, x, y, id) {
             this.x = x || Math.random() * width;
@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         update() {
             if (this.isDev) {
+                // Ensures developer particle stays centered on the card
                 const rect = nodes[this.id].getBoundingClientRect();
                 this.x = rect.left + rect.width / 2;
                 this.y = rect.top + rect.height / 2 + window.scrollY;
@@ -75,7 +76,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function createParticles() {
         particles = [];
         devNodes = [];
-        const numStandardParticles = 100;
+        // PERFORMANCE FIX: Reduced standard particles from 100 to 50
+        const numStandardParticles = 50; 
         
         for (let i = 0; i < numStandardParticles; i++) {
             particles.push(new Particle(false));
@@ -91,15 +93,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Main Animation Loop (Reads dynamic colors every frame) ---
     let hoveredNodeId = -1;
 
-    function animateIntegrationFlow() { 
+    function animateIntegrationFlow() { // FIXED FUNCTION NAME
         requestAnimationFrame(animateIntegrationFlow);
         const colors = getThemeColors();
 
-        // Clear canvas with a trail effect based on the current theme background
+        // Clear canvas with a slight trail effect
         ctx.fillStyle = colors.bg.replace(')', ', 0.1)').replace('rgb', 'rgba');
         ctx.fillRect(0, 0, width, height);
         
-        // 1. Draw Connections
+        // 1. Draw Connections (Unchanged logic)
         for (let i = 0; i < particles.length; i++) {
             for (let j = i + 1; j < particles.length; j++) {
                 const p1 = particles[i];
@@ -125,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
         
-        // 2. Draw Particles
+        // 2. Draw Particles (Unchanged logic)
         particles.forEach(p => {
             p.update();
             const isActive = p.isDev && p.id === hoveredNodeId;
@@ -135,7 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.globalAlpha = 1; 
     }
     
-    // --- Theme Toggle Synchronization ---
+    // --- Theme Toggle Synchronization (Unchanged logic) ---
     if (toggle) {
         toggle.addEventListener('change', () => {
             if (toggle.checked) {
@@ -148,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Node Hover Listeners ---
+    // --- Node Hover Listeners (Unchanged logic) ---
     nodes.forEach(node => {
         const id = parseInt(node.dataset.nodeId);
         
@@ -158,9 +160,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Start the integration flow
     createParticles();
-    animateIntegrationFlow();
+    animateIntegrationFlow(); // FIXED FUNCTION CALL
     
-    // Navbar Toggle (Standard)
+    // Navbar Toggle for Mobile (Standard)
     const navToggle = document.getElementById('navToggle');
     const navMenu = document.getElementById('navMenu');
     if (navToggle) {

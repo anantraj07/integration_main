@@ -5,18 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us | Integration Fest</title>
     <style>
-        /* Theme Variables */
         :root {
-            --theme-bg: #0a0a0a;
-            --theme-text: #e8eaf6;
-            --theme-card-bg: rgba(20, 20, 20, 0.9);
-            --accent-primary: #667eea;
-            --accent-secondary: #f093fb;
-            --status-success: #00e676;
-            --status-warning: #ff9800;
-        }
-
-        .light-theme {
             --theme-bg: #f5f5f5;
             --theme-text: #1a1a1a;
             --theme-card-bg: rgba(255, 255, 255, 0.95);
@@ -26,7 +15,16 @@
             --status-warning: #d32f2f;
         }
 
-        /* Reset */
+        .dark-theme {
+            --theme-bg: #0a0a0a;
+            --theme-text: #e8eaf6;
+            --theme-card-bg: rgba(20, 20, 20, 0.9);
+            --accent-primary: #667eea;
+            --accent-secondary: #f093fb;
+            --status-success: #00e676;
+            --status-warning: #ff9800;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
@@ -35,10 +33,8 @@
             font-family: 'Courier New', Courier, monospace;
             overflow-x: hidden;
             transition: background-color 0.3s, color 0.3s;
-            position: relative;
         }
 
-        /* Minimalist Geometric Background */
         .bg-pattern {
             position: fixed;
             top: 0;
@@ -47,16 +43,56 @@
             height: 100%;
             z-index: -1;
             pointer-events: none;
-            opacity: 0.4;
+            opacity: 0.6;
         }
 
-        /* Animated gradient orbs */
+        .shape {
+            position: absolute;
+            opacity: 0.15;
+            animation: float-shape 15s infinite ease-in-out;
+        }
+
+        .shape-1 {
+            width: 150px;
+            height: 150px;
+            border: 3px solid var(--accent-primary);
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            top: 15%;
+            left: 10%;
+        }
+
+        .shape-2 {
+            width: 120px;
+            height: 120px;
+            border: 3px solid var(--accent-secondary);
+            border-radius: 50%;
+            top: 60%;
+            right: 15%;
+            animation-delay: 3s;
+        }
+
+        .shape-3 {
+            width: 100px;
+            height: 100px;
+            border: 3px solid var(--accent-primary);
+            transform: rotate(45deg);
+            bottom: 20%;
+            left: 60%;
+            animation-delay: 6s;
+        }
+
+        @keyframes float-shape {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(40px, -40px) rotate(120deg); }
+            66% { transform: translate(-30px, 40px) rotate(240deg); }
+        }
+
         .orb {
             position: absolute;
             border-radius: 50%;
-            filter: blur(80px);
-            animation: float 20s infinite ease-in-out;
-            opacity: 0.3;
+            filter: blur(100px);
+            animation: float-orb 20s infinite ease-in-out;
+            opacity: 0.2;
         }
 
         .orb1 {
@@ -64,8 +100,7 @@
             height: 400px;
             background: var(--accent-primary);
             top: 10%;
-            left: 10%;
-            animation-delay: 0s;
+            left: 5%;
         }
 
         .orb2 {
@@ -73,26 +108,25 @@
             height: 350px;
             background: var(--accent-secondary);
             top: 50%;
-            right: 10%;
-            animation-delay: 5s;
+            right: 5%;
+            animation-delay: 7s;
         }
 
         .orb3 {
             width: 300px;
             height: 300px;
             background: var(--accent-primary);
-            bottom: 10%;
+            bottom: 15%;
             left: 50%;
-            animation-delay: 10s;
+            animation-delay: 14s;
         }
 
-        @keyframes float {
+        @keyframes float-orb {
             0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(30px, -50px) scale(1.1); }
-            66% { transform: translate(-20px, 30px) scale(0.9); }
+            33% { transform: translate(50px, -60px) scale(1.15); }
+            66% { transform: translate(-40px, 50px) scale(0.85); }
         }
 
-        /* Grid pattern overlay */
         .grid-overlay {
             position: fixed;
             top: 0;
@@ -100,29 +134,35 @@
             width: 100%;
             height: 100%;
             background-image: 
-                linear-gradient(rgba(102, 126, 234, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(102, 126, 234, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
+                linear-gradient(rgba(255, 140, 0, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 140, 0, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
             z-index: -1;
-            pointer-events: none;
         }
 
-        /* Navbar */
+        .dark-theme .grid-overlay {
+            background-image: 
+                linear-gradient(rgba(102, 126, 234, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(102, 126, 234, 0.03) 1px, transparent 1px);
+        }
+
         .navbar {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             z-index: 1000;
-            background: rgba(10, 10, 10, 0.95);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(102, 126, 234, 0.2);
+            border-bottom: 1px solid rgba(255, 140, 0, 0.2);
             padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
 
-        .light-theme .navbar {
-            background: rgba(255, 255, 255, 0.95);
-            border-bottom-color: rgba(255, 140, 0, 0.2);
+        .dark-theme .navbar {
+            background: rgba(10, 10, 10, 0.95);
+            border-bottom-color: rgba(102, 126, 234, 0.2);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
 
         .nav-container {
@@ -131,7 +171,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 20px;
+            padding: 0 30px;
         }
 
         .nav-logo {
@@ -142,6 +182,7 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             text-decoration: none;
+            letter-spacing: 1px;
         }
 
         .nav-toggle {
@@ -165,107 +206,81 @@
         .nav-menu {
             list-style: none;
             display: flex;
-            gap: 25px;
+            gap: 30px;
             align-items: center;
         }
-
-        .nav-item { position: relative; }
 
         .nav-link {
             color: var(--theme-text);
             text-decoration: none;
             font-size: 0.95rem;
-            transition: color 0.3s ease;
-            padding: 8px 12px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 8px 0;
             display: block;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
         }
 
         .nav-link:hover { 
             color: var(--accent-primary); 
         }
 
-        .dropdown { position: relative; }
-
-        .dropdown-menu {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: rgba(10, 10, 10, 0.98);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(102, 126, 234, 0.3);
-            border-radius: 8px;
-            padding: 10px 0;
-            min-width: 180px;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-            transition: all 0.3s ease;
-            margin-top: 5px;
-        }
-
-        .light-theme .dropdown-menu {
-            background: rgba(255, 255, 255, 0.98);
-            border-color: rgba(255, 140, 0, 0.3);
-        }
-
-        .dropdown:hover .dropdown-menu {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        .dropdown-item {
-            padding: 10px 20px;
-            color: var(--theme-text);
-            text-decoration: none;
-            display: block;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-        }
-
-        .dropdown-item:hover {
-            background: rgba(102, 126, 234, 0.1);
-            color: var(--accent-primary);
-        }
-
-        /* Header */
         .flow-wrapper {
-            padding: 100px 20px 60px;
+            padding: 120px 20px 60px;
             max-width: 1400px;
             margin: 0 auto;
         }
 
         .flow-header {
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 80px;
         }
 
         .header-prompt {
             color: var(--accent-primary);
             font-size: 0.95rem;
             margin-bottom: 15px;
+            font-weight: 600;
         }
 
         .master-title {
-            font-size: 2.5rem;
+            font-size: 3rem;
             font-weight: 700;
             color: var(--theme-text);
             letter-spacing: 3px;
-            text-shadow: 0 0 15px var(--accent-secondary);
             margin-bottom: 15px;
+            text-shadow: 0 0 20px rgba(255, 140, 0, 0.3);
+        }
+
+        .dark-theme .master-title {
+            text-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
         }
 
         .header-subtitle {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             color: var(--accent-secondary);
             font-style: italic;
         }
 
-        /* Node Grid - Fixed overlapping */
         .node-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
             padding: 0 20px;
             max-width: 1200px;
             margin: 0 auto;
@@ -273,25 +288,45 @@
 
         .flow-node {
             background: var(--theme-card-bg);
-            border: 1px solid rgba(102, 126, 234, 0.3);
-            border-radius: 12px;
+            border: 2px solid rgba(255, 140, 0, 0.2);
+            border-radius: 16px;
             backdrop-filter: blur(10px);
-            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.2);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
             transition: all 0.4s ease;
-            padding: 25px;
-            overflow: hidden;
+            padding: 30px;
+            min-height: 320px;
             position: relative;
         }
 
-        .light-theme .flow-node {
-            border-color: rgba(255, 140, 0, 0.3);
-            box-shadow: 0 4px 20px rgba(255, 140, 0, 0.15);
+        .dark-theme .flow-node {
+            border-color: rgba(102, 126, 234, 0.3);
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.2);
+        }
+
+        .flow-node::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .flow-node:hover::before {
+            transform: scaleX(1);
         }
 
         .flow-node:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 8px 30px var(--accent-primary);
-            border-color: var(--accent-secondary);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(255, 140, 0, 0.3);
+            border-color: var(--accent-primary);
+        }
+
+        .dark-theme .flow-node:hover {
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
         }
 
         .node-profile {
@@ -300,27 +335,31 @@
         }
 
         .node-img-container {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 15px;
+            width: 130px;
+            height: 130px;
+            margin: 0 auto 20px;
             border: 3px solid var(--accent-primary);
             border-radius: 50%;
             overflow: hidden;
-            box-shadow: 0 0 15px var(--accent-primary);
+            box-shadow: 0 0 20px rgba(255, 140, 0, 0.4);
             transition: all 0.4s ease;
+        }
+
+        .dark-theme .node-img-container {
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.4);
         }
 
         .flow-node:hover .node-img-container {
             border-color: var(--accent-secondary);
-            box-shadow: 0 0 20px var(--accent-secondary);
-            transform: scale(1.05);
+            box-shadow: 0 0 30px var(--accent-secondary);
+            transform: scale(1.08) rotate(5deg);
         }
 
         .node-img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: grayscale(30%);
+            filter: grayscale(20%);
             transition: filter 0.4s;
         }
 
@@ -329,45 +368,48 @@
         }
 
         .node-name {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             color: var(--theme-text);
-            margin: 8px 0 5px;
-            font-weight: 600;
+            margin: 10px 0 8px;
+            font-weight: 700;
         }
 
         .node-tag {
             color: var(--accent-secondary);
-            font-size: 0.85rem;
+            font-size: 0.9rem;
+            font-weight: 500;
         }
 
         .data-pulse {
-            padding-top: 15px;
-            font-size: 0.85rem;
-            line-height: 1.5;
+            padding-top: 20px;
+            font-size: 0.9rem;
+            line-height: 1.6;
             color: var(--theme-text);
             opacity: 0.9;
         }
 
         .node-status {
-            margin-top: 12px;
-            padding-top: 12px;
+            margin-top: 15px;
+            padding-top: 15px;
             font-weight: bold;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 0.8rem;
+            border-top: 1px solid rgba(255, 140, 0, 0.2);
+            font-size: 0.85rem;
         }
 
-        .status-success {
-            color: var(--status-success);
+        .dark-theme .node-status {
+            border-top-color: rgba(255, 255, 255, 0.1);
         }
 
-        .status-warning {
-            color: var(--status-warning);
-        }
+        .status-success { color: var(--status-success); }
+        .status-warning { color: var(--status-warning); }
 
-        /* Theme Toggle - Moved to right side */
         .theme-toggle-section {
-            padding: 40px 20px;
-            border-top: 1px solid rgba(102, 126, 234, 0.2);
+            padding: 60px 20px 40px;
+            border-top: 1px solid rgba(255, 140, 0, 0.2);
+        }
+
+        .dark-theme .theme-toggle-section {
+            border-top-color: rgba(102, 126, 234, 0.2);
         }
 
         .theme-toggle-wrapper {
@@ -386,15 +428,15 @@
 
         .toggle-label {
             color: var(--accent-primary);
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             font-weight: bold;
         }
 
         .toggle-switch {
             position: relative;
             display: inline-block;
-            width: 50px;
-            height: 26px;
+            width: 56px;
+            height: 30px;
         }
 
         .toggle-switch input {
@@ -412,14 +454,14 @@
             bottom: 0;
             background-color: var(--accent-primary);
             transition: 0.3s;
-            border-radius: 26px;
+            border-radius: 30px;
         }
 
         .slider:before {
             position: absolute;
             content: "";
-            height: 18px;
-            width: 18px;
+            height: 22px;
+            width: 22px;
             left: 4px;
             bottom: 4px;
             background-color: white;
@@ -432,13 +474,16 @@
         }
 
         input:checked + .slider:before {
-            transform: translateX(24px);
+            transform: translateX(26px);
         }
 
-        /* Footer */
         .footer-section {
-            padding: 40px 20px;
-            border-top: 1px solid rgba(102, 126, 234, 0.2);
+            padding: 50px 20px;
+            border-top: 1px solid rgba(255, 140, 0, 0.2);
+        }
+
+        .dark-theme .footer-section {
+            border-top-color: rgba(102, 126, 234, 0.2);
         }
 
         .footer-bottom {
@@ -448,124 +493,101 @@
         }
 
         .footer-logo {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: 700;
             background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
         }
 
         .footer-status {
             color: var(--theme-text);
-            font-size: 0.85rem;
-            margin-top: 8px;
+            font-size: 0.9rem;
+            margin-top: 10px;
             opacity: 0.8;
         }
 
-        /* Ripple Animation */
         @keyframes ripple {
-            0% {
-                width: 20px;
-                height: 20px;
-                opacity: 1;
-            }
-            100% {
-                width: 300px;
-                height: 300px;
-                opacity: 0;
-            }
+            0% { width: 20px; height: 20px; opacity: 1; }
+            100% { width: 300px; height: 300px; opacity: 0; }
         }
 
-        /* Mobile Responsive */
         @media (max-width: 768px) {
-            .nav-toggle {
-                display: flex;
-            }
+            .nav-toggle { display: flex; }
 
             .nav-menu {
                 position: fixed;
                 top: 65px;
                 left: -100%;
                 flex-direction: column;
-                background: rgba(10, 10, 10, 0.98);
+                background: rgba(255, 255, 255, 0.98);
                 width: 100%;
                 height: calc(100vh - 65px);
-                padding: 20px 0;
+                padding: 30px 0;
                 gap: 0;
                 transition: left 0.3s ease;
                 align-items: flex-start;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             }
 
-            .light-theme .nav-menu {
-                background: rgba(255, 255, 255, 0.98);
+            .dark-theme .nav-menu {
+                background: rgba(10, 10, 10, 0.98);
             }
 
-            .nav-menu.active {
-                left: 0;
-            }
+            .nav-menu.active { left: 0; }
 
             .nav-item {
                 width: 100%;
-                border-bottom: 1px solid rgba(102, 126, 234, 0.1);
+                border-bottom: 1px solid rgba(255, 140, 0, 0.1);
+            }
+
+            .dark-theme .nav-item {
+                border-bottom-color: rgba(102, 126, 234, 0.1);
             }
 
             .nav-link {
-                padding: 15px 25px;
+                padding: 18px 30px;
             }
 
-            .dropdown-menu {
-                position: static;
-                opacity: 1;
-                visibility: visible;
-                transform: none;
-                border: none;
-                border-top: 1px solid rgba(102, 126, 234, 0.1);
-                border-radius: 0;
-                margin-top: 0;
-                max-height: 0;
-                overflow: hidden;
-                transition: max-height 0.3s ease;
-            }
-
-            .dropdown.active .dropdown-menu {
-                max-height: 250px;
-            }
+            .nav-link::after { display: none; }
 
             .master-title {
-                font-size: 1.8rem;
+                font-size: 2rem;
                 letter-spacing: 2px;
             }
 
-            .header-subtitle {
-                font-size: 0.95rem;
-            }
+            .header-subtitle { font-size: 1rem; }
 
             .node-grid {
                 grid-template-columns: 1fr;
-                gap: 30px;
-                max-width: 400px;
+                gap: 40px;
+                max-width: 450px;
             }
 
             .theme-toggle-wrapper {
                 justify-content: center;
             }
 
-            .orb { display: none; }
+            .shape { display: none; }
         }
 
         @media (min-width: 769px) and (max-width: 1024px) {
             .node-grid {
                 grid-template-columns: repeat(2, 1fr);
+                gap: 40px;
             }
         }
     </style>
 </head>
-<body class="dark-theme">
+<body class="light-theme">
     
-    <!-- Minimalist Background Effects -->
     <div class="bg-pattern">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
         <div class="orb orb1"></div>
         <div class="orb orb2"></div>
         <div class="orb orb3"></div>
@@ -574,32 +596,19 @@
 
     <nav class="navbar">
         <div class="nav-container">
-            <a href="#" class="nav-logo">∫ Integration Fest</a>
+            <a href="https://www.integrationfest.in/" class="nav-logo">∫ Integration Fest</a>
             
             <button class="nav-toggle" id="navToggle">
                 <span></span><span></span><span></span>
             </button>
             
             <ul class="nav-menu" id="navMenu">
-                <li class="nav-item"><a href="#" class="nav-link">Home</a></li>
-                <li class="nav-item dropdown" id="techDropdown">
-                    <a href="#" class="nav-link">Tech</a>
-                    <div class="dropdown-menu">
-                        <a href="#" class="dropdown-item">SPARQ</a>
-                        <a href="#" class="dropdown-item">MTRP</a>
-                        <a href="#" class="dropdown-item">Integration Bee</a>
-                    </div>
-                </li>
-                <li class="nav-item"><a href="#" class="nav-link">Cultural</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">Sports</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">Gallery</a></li>
+                <li class="nav-item"><a href="https://www.integrationfest.in/" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="https://www.integrationfest.in/tech" class="nav-link">Tech</a></li>
+                <li class="nav-item"><a href="https://www.integrationfest.in/cultural" class="nav-link">Cultural</a></li>
+                <li class="nav-item"><a href="https://www.integrationfest.in/sports" class="nav-link">Sports</a></li>
+                <li class="nav-item"><a href="https://www.integrationfest.in/gallery" class="nav-link">Gallery</a></li>
                 <li class="nav-item"><a href="#" class="nav-link">About</a></li>
-                 <div class="dropdown-menu">
-                        <a href="#" class="dropdown-item">About Us</a>
-                        <a href="#" class="dropdown-item">Venue</a>
-                        <a href="#" class="dropdown-item">Sponsor</a>
-                        <a href="#" class="dropdown-item">Contact</a>
-                    </div>
             </ul>
         </div>
     </nav>
@@ -612,10 +621,10 @@
         </header>
 
         <div class="node-grid">
-            <div class="flow-node" data-node-id="0">
+            <div class="flow-node">
                 <div class="node-profile">
                     <div class="node-img-container">
-                        <img src="https://placehold.co/120x120/667eea/FFF?text=HM" alt="Himadri Mandal" class="node-img">
+                        <img src="https://placehold.co/130x130/ff8c00/FFF?text=HM" alt="Himadri Mandal" class="node-img">
                     </div>
                     <div>
                         <h3 class="node-name">Himadri Mandal</h3>
@@ -628,10 +637,10 @@
                 </div>
             </div>
 
-            <div class="flow-node" data-node-id="1">
+            <div class="flow-node">
                 <div class="node-profile">
                     <div class="node-img-container">
-                        <img src="https://placehold.co/120x120/f093fb/FFF?text=AC" alt="Avigyan Chakraborty" class="node-img">
+                        <img src="https://placehold.co/130x130/009688/FFF?text=AC" alt="Avigyan Chakraborty" class="node-img">
                     </div>
                     <div>
                         <h3 class="node-name">Avigyan Chakraborty</h3>
@@ -644,10 +653,10 @@
                 </div>
             </div>
 
-            <div class="flow-node" data-node-id="2">
+            <div class="flow-node">
                 <div class="node-profile">
                     <div class="node-img-container">
-                        <img src="https://placehold.co/120x120/667eea/FFF?text=TR" alt="Tanmay Rai" class="node-img">
+                        <img src="https://placehold.co/130x130/ff8c00/FFF?text=TR" alt="Tanmay Rai" class="node-img">
                     </div>
                     <div>
                         <h3 class="node-name">Tanmay Rai</h3>
@@ -660,10 +669,10 @@
                 </div>
             </div>
             
-            <div class="flow-node" data-node-id="3">
+            <div class="flow-node">
                 <div class="node-profile">
                     <div class="node-img-container">
-                        <img src="https://placehold.co/120x120/f093fb/FFF?text=AR" alt="Anant Raj" class="node-img">
+                        <img src="https://placehold.co/130x130/009688/FFF?text=AR" alt="Anant Raj" class="node-img">
                     </div>
                     <div>
                         <h3 class="node-name">Anant Raj</h3>
@@ -676,10 +685,10 @@
                 </div>
             </div>
 
-            <div class="flow-node" data-node-id="4">
+            <div class="flow-node">
                 <div class="node-profile">
                     <div class="node-img-container">
-                        <img src="https://placehold.co/120x120/667eea/FFF?text=JC" alt="Jishnu Ray Chaudhary" class="node-img">
+                        <img src="https://placehold.co/130x130/ff8c00/FFF?text=JC" alt="Jishnu Ray Chaudhary" class="node-img">
                     </div>
                     <div>
                         <h3 class="node-name">Jishnu Ray Chaudhary</h3>
@@ -720,23 +729,16 @@
             const body = document.body;
             const navToggle = document.getElementById('navToggle');
             const navMenu = document.getElementById('navMenu');
-            const techDropdown = document.getElementById('techDropdown');
 
-            // Glitch text effect on title
             const title = document.querySelector('.master-title');
             const originalText = title.textContent;
             const glitchChars = '!<>-_\\/[]{}—=+*^?#________';
             
             function glitchText() {
                 if (Math.random() > 0.95) {
-                    const glitchLength = Math.floor(Math.random() * 3) + 1;
                     let glitched = '';
                     for (let i = 0; i < originalText.length; i++) {
-                        if (Math.random() > 0.9 && glitchLength > 0) {
-                            glitched += glitchChars[Math.floor(Math.random() * glitchChars.length)];
-                        } else {
-                            glitched += originalText[i];
-                        }
+                        glitched += Math.random() > 0.9 ? glitchChars[Math.floor(Math.random() * glitchChars.length)] : originalText[i];
                     }
                     title.textContent = glitched;
                     setTimeout(() => { title.textContent = originalText; }, 50);
@@ -744,14 +746,13 @@
             }
             setInterval(glitchText, 3000);
 
-            // Subtle parallax scroll effect on nodes
             let ticking = false;
             window.addEventListener('scroll', () => {
                 if (!ticking) {
                     window.requestAnimationFrame(() => {
                         const scrolled = window.scrollY;
                         nodes.forEach((node, i) => {
-                            const speed = (i % 3 + 1) * 0.03;
+                            const speed = (i % 3 + 1) * 0.02;
                             node.style.transform = `translateY(${scrolled * speed}px)`;
                         });
                         ticking = false;
@@ -760,7 +761,6 @@
                 }
             });
 
-            // Typing effect on hover
             nodes.forEach(node => {
                 const quote = node.querySelector('.data-pulse p:first-child');
                 const originalQuote = quote.textContent;
@@ -771,8 +771,7 @@
                     quote.textContent = '';
                     typeInterval = setInterval(() => {
                         if (index < originalQuote.length) {
-                            quote.textContent += originalQuote[index];
-                            index++;
+                            quote.textContent += originalQuote[index++];
                         } else {
                             clearInterval(typeInterval);
                         }
@@ -783,65 +782,47 @@
                     clearInterval(typeInterval);
                     quote.textContent = originalQuote;
                 });
-            });
 
-            // Ripple effect on node click
-            nodes.forEach(node => {
                 node.addEventListener('click', (e) => {
                     const ripple = document.createElement('div');
-                    ripple.style.position = 'absolute';
-                    ripple.style.borderRadius = '50%';
-                    ripple.style.background = 'radial-gradient(circle, rgba(102, 126, 234, 0.6) 0%, transparent 70%)';
-                    ripple.style.width = '20px';
-                    ripple.style.height = '20px';
-                    ripple.style.left = (e.clientX - node.getBoundingClientRect().left - 10) + 'px';
-                    ripple.style.top = (e.clientY - node.getBoundingClientRect().top - 10) + 'px';
-                    ripple.style.pointerEvents = 'none';
-                    ripple.style.animation = 'ripple 0.6s ease-out';
-                    node.style.position = 'relative';
+                    ripple.style.cssText = `
+                        position: absolute;
+                        border-radius: 50%;
+                        background: radial-gradient(circle, rgba(255, 140, 0, 0.5) 0%, transparent 70%);
+                        width: 20px;
+                        height: 20px;
+                        left: ${e.clientX - node.getBoundingClientRect().left - 10}px;
+                        top: ${e.clientY - node.getBoundingClientRect().top - 10}px;
+                        pointer-events: none;
+                        animation: ripple 0.6s ease-out;
+                    `;
                     node.appendChild(ripple);
                     setTimeout(() => ripple.remove(), 600);
                 });
             });
 
-            // Theme Toggle with transition effect
             if (toggle) {
                 toggle.addEventListener('change', () => {
-                    body.style.transition = 'none';
                     if (toggle.checked) {
-                        body.classList.remove('dark-theme');
-                        body.classList.add('light-theme');
-                    } else {
                         body.classList.remove('light-theme');
                         body.classList.add('dark-theme');
+                    } else {
+                        body.classList.remove('dark-theme');
+                        body.classList.add('light-theme');
                     }
-                    setTimeout(() => { body.style.transition = ''; }, 50);
                     
-                    // Pulse effect on toggle
                     const slider = toggle.nextElementSibling;
                     slider.style.transform = 'scale(1.2)';
                     setTimeout(() => { slider.style.transform = ''; }, 200);
                 });
             }
 
-            // Mobile Menu Toggle
             if (navToggle) {
                 navToggle.addEventListener('click', () => {
                     navMenu.classList.toggle('active');
                 });
             }
 
-            // Dropdown for mobile
-            if (techDropdown) {
-                techDropdown.addEventListener('click', (e) => {
-                    if (window.innerWidth <= 768 && e.target.classList.contains('nav-link')) {
-                        e.preventDefault();
-                        techDropdown.classList.toggle('active');
-                    }
-                });
-            }
-
-            // Close mobile menu when clicking outside
             document.addEventListener('click', (e) => {
                 if (!e.target.closest('.navbar')) {
                     navMenu.classList.remove('active');

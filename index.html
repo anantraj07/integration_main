@@ -4,30 +4,584 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us | Integration Fest</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Theme Variables */
+        :root {
+            --theme-bg: #0a0a0a;
+            --theme-text: #e8eaf6;
+            --theme-card-bg: rgba(20, 20, 20, 0.9);
+            --accent-primary: #667eea;
+            --accent-secondary: #f093fb;
+            --status-success: #00e676;
+            --status-warning: #ff9800;
+        }
+
+        .light-theme {
+            --theme-bg: #f5f5f5;
+            --theme-text: #1a1a1a;
+            --theme-card-bg: rgba(255, 255, 255, 0.95);
+            --accent-primary: #ff8c00;
+            --accent-secondary: #009688;
+            --status-success: #388e3c;
+            --status-warning: #d32f2f;
+        }
+
+        /* Reset */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: var(--theme-bg);
+            color: var(--theme-text);
+            font-family: 'Courier New', Courier, monospace;
+            overflow-x: hidden;
+            transition: background-color 0.3s, color 0.3s;
+            position: relative;
+        }
+
+        /* Minimalist Geometric Background */
+        .bg-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.4;
+        }
+
+        /* Animated gradient orbs */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            animation: float 20s infinite ease-in-out;
+            opacity: 0.3;
+        }
+
+        .orb1 {
+            width: 400px;
+            height: 400px;
+            background: var(--accent-primary);
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .orb2 {
+            width: 350px;
+            height: 350px;
+            background: var(--accent-secondary);
+            top: 50%;
+            right: 10%;
+            animation-delay: 5s;
+        }
+
+        .orb3 {
+            width: 300px;
+            height: 300px;
+            background: var(--accent-primary);
+            bottom: 10%;
+            left: 50%;
+            animation-delay: 10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 30px) scale(0.9); }
+        }
+
+        /* Grid pattern overlay */
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(102, 126, 234, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(102, 126, 234, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(102, 126, 234, 0.2);
+            padding: 15px 0;
+        }
+
+        .light-theme .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom-color: rgba(255, 140, 0, 0.2);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 5px;
+        }
+
+        .nav-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--accent-primary);
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .nav-item { position: relative; }
+
+        .nav-link {
+            color: var(--theme-text);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            padding: 8px 12px;
+            display: block;
+        }
+
+        .nav-link:hover { 
+            color: var(--accent-primary); 
+        }
+
+        .dropdown { position: relative; }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 8px;
+            padding: 10px 0;
+            min-width: 180px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            margin-top: 5px;
+        }
+
+        .light-theme .dropdown-menu {
+            background: rgba(255, 255, 255, 0.98);
+            border-color: rgba(255, 140, 0, 0.3);
+        }
+
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            padding: 10px 20px;
+            color: var(--theme-text);
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(102, 126, 234, 0.1);
+            color: var(--accent-primary);
+        }
+
+        /* Header */
+        .flow-wrapper {
+            padding: 100px 20px 60px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .flow-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .header-prompt {
+            color: var(--accent-primary);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+
+        .master-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--theme-text);
+            letter-spacing: 3px;
+            text-shadow: 0 0 15px var(--accent-secondary);
+            margin-bottom: 15px;
+        }
+
+        .header-subtitle {
+            font-size: 1.1rem;
+            color: var(--accent-secondary);
+            font-style: italic;
+        }
+
+        /* Node Grid - Fixed overlapping */
+        .node-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            padding: 0 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .flow-node {
+            background: var(--theme-card-bg);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.2);
+            transition: all 0.4s ease;
+            padding: 25px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .light-theme .flow-node {
+            border-color: rgba(255, 140, 0, 0.3);
+            box-shadow: 0 4px 20px rgba(255, 140, 0, 0.15);
+        }
+
+        .flow-node:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 30px var(--accent-primary);
+            border-color: var(--accent-secondary);
+        }
+
+        .node-profile {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .node-img-container {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 15px;
+            border: 3px solid var(--accent-primary);
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 0 15px var(--accent-primary);
+            transition: all 0.4s ease;
+        }
+
+        .flow-node:hover .node-img-container {
+            border-color: var(--accent-secondary);
+            box-shadow: 0 0 20px var(--accent-secondary);
+            transform: scale(1.05);
+        }
+
+        .node-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(30%);
+            transition: filter 0.4s;
+        }
+
+        .flow-node:hover .node-img {
+            filter: grayscale(0%);
+        }
+
+        .node-name {
+            font-size: 1.3rem;
+            color: var(--theme-text);
+            margin: 8px 0 5px;
+            font-weight: 600;
+        }
+
+        .node-tag {
+            color: var(--accent-secondary);
+            font-size: 0.85rem;
+        }
+
+        .data-pulse {
+            padding-top: 15px;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            color: var(--theme-text);
+            opacity: 0.9;
+        }
+
+        .node-status {
+            margin-top: 12px;
+            padding-top: 12px;
+            font-weight: bold;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.8rem;
+        }
+
+        .status-success {
+            color: var(--status-success);
+        }
+
+        .status-warning {
+            color: var(--status-warning);
+        }
+
+        /* Theme Toggle - Moved to right side */
+        .theme-toggle-section {
+            padding: 40px 20px;
+            border-top: 1px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .theme-toggle-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .toggle-label {
+            color: var(--accent-primary);
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 26px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--accent-primary);
+            transition: 0.3s;
+            border-radius: 26px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: 0.3s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--accent-secondary);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(24px);
+        }
+
+        /* Footer */
+        .footer-section {
+            padding: 40px 20px;
+            border-top: 1px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .footer-status {
+            color: var(--theme-text);
+            font-size: 0.85rem;
+            margin-top: 8px;
+            opacity: 0.8;
+        }
+
+        /* Ripple Animation */
+        @keyframes ripple {
+            0% {
+                width: 20px;
+                height: 20px;
+                opacity: 1;
+            }
+            100% {
+                width: 300px;
+                height: 300px;
+                opacity: 0;
+            }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-toggle {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 65px;
+                left: -100%;
+                flex-direction: column;
+                background: rgba(10, 10, 10, 0.98);
+                width: 100%;
+                height: calc(100vh - 65px);
+                padding: 20px 0;
+                gap: 0;
+                transition: left 0.3s ease;
+                align-items: flex-start;
+            }
+
+            .light-theme .nav-menu {
+                background: rgba(255, 255, 255, 0.98);
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-item {
+                width: 100%;
+                border-bottom: 1px solid rgba(102, 126, 234, 0.1);
+            }
+
+            .nav-link {
+                padding: 15px 25px;
+            }
+
+            .dropdown-menu {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                border: none;
+                border-top: 1px solid rgba(102, 126, 234, 0.1);
+                border-radius: 0;
+                margin-top: 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease;
+            }
+
+            .dropdown.active .dropdown-menu {
+                max-height: 250px;
+            }
+
+            .master-title {
+                font-size: 1.8rem;
+                letter-spacing: 2px;
+            }
+
+            .header-subtitle {
+                font-size: 0.95rem;
+            }
+
+            .node-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                max-width: 400px;
+            }
+
+            .theme-toggle-wrapper {
+                justify-content: center;
+            }
+
+            .orb { display: none; }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .node-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
 </head>
 <body class="dark-theme">
     
-    <canvas id="flowCanvas"></canvas>
+    <!-- Minimalist Background Effects -->
+    <div class="bg-pattern">
+        <div class="orb orb1"></div>
+        <div class="orb orb2"></div>
+        <div class="orb orb3"></div>
+    </div>
+    <div class="grid-overlay"></div>
 
     <nav class="navbar">
         <div class="nav-container">
-            <a href="index.html" class="nav-logo">∫ Integration Fest</a>
-            
-            <div class="theme-toggle-container">
-                <label class="toggle-switch">
-                    <input type="checkbox" id="themeToggle">
-                    <span class="slider"></span>
-                </label>
-                <span class="toggle-label">SYNCHRONIZE</span>
-            </div>
+            <a href="#" class="nav-logo">∫ Integration Fest</a>
             
             <button class="nav-toggle" id="navToggle">
                 <span></span><span></span><span></span>
             </button>
             
             <ul class="nav-menu" id="navMenu">
-                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Home</a></li>
                 <li class="nav-item dropdown" id="techDropdown">
                     <a href="#" class="nav-link">Tech</a>
                     <div class="dropdown-menu">
@@ -36,16 +590,10 @@
                         <a href="#" class="dropdown-item">Integration Bee</a>
                     </div>
                 </li>
-                <li class="nav-item"><a href="cultural.html" class="nav-link">Cultural</a></li>
-                <li class="nav-item"><a href="sports.html" class="nav-link">Sports</a></li>
-                <li class="nav-item"><a href="gallery.html" class="nav-link">Gallery</a></li>
-                <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-                <div class="dropdown-menu">
-                        <a href="#" class="dropdown-item">About Us</a>
-                        <a href="#" class="dropdown-item">Venue</a>
-                        <a href="#" class="dropdown-item">Sponsors</a>
-                        <a href="#" class="dropdown-item">Contact</a>
-                    </div>
+                <li class="nav-item"><a href="#" class="nav-link">Cultural</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Sports</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Gallery</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">About</a></li>
             </ul>
         </div>
     </nav>
@@ -61,7 +609,7 @@
             <div class="flow-node" data-node-id="0">
                 <div class="node-profile">
                     <div class="node-img-container">
-                        <img src="https://placehold.co/100x100/1a1a1a/FFF?text=HM" alt="Himadri Mandal" class="node-img">
+                        <img src="https://placehold.co/120x120/667eea/FFF?text=HM" alt="Himadri Mandal" class="node-img">
                     </div>
                     <div>
                         <h3 class="node-name">Himadri Mandal</h3>
@@ -77,7 +625,7 @@
             <div class="flow-node" data-node-id="1">
                 <div class="node-profile">
                     <div class="node-img-container">
-                        <img src="https://placehold.co/100x100/1a1a1a/FFF?text=AC" alt="Avigyan Chakraborty" class="node-img">
+                        <img src="https://placehold.co/120x120/f093fb/FFF?text=AC" alt="Avigyan Chakraborty" class="node-img">
                     </div>
                     <div>
                         <h3 class="node-name">Avigyan Chakraborty</h3>
@@ -93,7 +641,7 @@
             <div class="flow-node" data-node-id="2">
                 <div class="node-profile">
                     <div class="node-img-container">
-                        <img src="https://placehold.co/100x100/1a1a1a/FFF?text=TR" alt="Tanmay Rai" class="node-img">
+                        <img src="https://placehold.co/120x120/667eea/FFF?text=TR" alt="Tanmay Rai" class="node-img">
                     </div>
                     <div>
                         <h3 class="node-name">Tanmay Rai</h3>
@@ -109,7 +657,7 @@
             <div class="flow-node" data-node-id="3">
                 <div class="node-profile">
                     <div class="node-img-container">
-                        <img src="https://placehold.co/100x100/1a1a1a/FFF?text=AR" alt="Anant Raj" class="node-img">
+                        <img src="https://placehold.co/120x120/f093fb/FFF?text=AR" alt="Anant Raj" class="node-img">
                     </div>
                     <div>
                         <h3 class="node-name">Anant Raj</h3>
@@ -125,7 +673,7 @@
             <div class="flow-node" data-node-id="4">
                 <div class="node-profile">
                     <div class="node-img-container">
-                        <img src="https://placehold.co/100x100/1a1a1a/FFF?text=JC" alt="Jishnu Chaudhari" class="node-img">
+                        <img src="https://placehold.co/120x120/667eea/FFF?text=JC" alt="Jishnu Chaudhari" class="node-img">
                     </div>
                     <div>
                         <h3 class="node-name">Jishnu Chaudhari</h3>
@@ -140,6 +688,18 @@
         </div>
     </div>
 
+    <section class="theme-toggle-section">
+        <div class="theme-toggle-wrapper">
+            <div class="toggle-container">
+                <span class="toggle-label">THEME SYNC</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="themeToggle">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+    </section>
+
     <section class="footer-section">
         <div class="footer-bottom">
             <div class="footer-logo">INTEGRATION FEST 2026</div>
@@ -147,6 +707,141 @@
         </div>
     </section>
 
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const nodes = document.querySelectorAll('.flow-node');
+            const toggle = document.getElementById('themeToggle');
+            const body = document.body;
+            const navToggle = document.getElementById('navToggle');
+            const navMenu = document.getElementById('navMenu');
+            const techDropdown = document.getElementById('techDropdown');
+
+            // Glitch text effect on title
+            const title = document.querySelector('.master-title');
+            const originalText = title.textContent;
+            const glitchChars = '!<>-_\\/[]{}—=+*^?#________';
+            
+            function glitchText() {
+                if (Math.random() > 0.95) {
+                    const glitchLength = Math.floor(Math.random() * 3) + 1;
+                    let glitched = '';
+                    for (let i = 0; i < originalText.length; i++) {
+                        if (Math.random() > 0.9 && glitchLength > 0) {
+                            glitched += glitchChars[Math.floor(Math.random() * glitchChars.length)];
+                        } else {
+                            glitched += originalText[i];
+                        }
+                    }
+                    title.textContent = glitched;
+                    setTimeout(() => { title.textContent = originalText; }, 50);
+                }
+            }
+            setInterval(glitchText, 3000);
+
+            // Subtle parallax scroll effect on nodes
+            let ticking = false;
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        const scrolled = window.scrollY;
+                        nodes.forEach((node, i) => {
+                            const speed = (i % 3 + 1) * 0.03;
+                            node.style.transform = `translateY(${scrolled * speed}px)`;
+                        });
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+
+            // Typing effect on hover
+            nodes.forEach(node => {
+                const quote = node.querySelector('.data-pulse p:first-child');
+                const originalQuote = quote.textContent;
+                let typeInterval;
+                
+                node.addEventListener('mouseenter', () => {
+                    let index = 0;
+                    quote.textContent = '';
+                    typeInterval = setInterval(() => {
+                        if (index < originalQuote.length) {
+                            quote.textContent += originalQuote[index];
+                            index++;
+                        } else {
+                            clearInterval(typeInterval);
+                        }
+                    }, 30);
+                });
+                
+                node.addEventListener('mouseleave', () => {
+                    clearInterval(typeInterval);
+                    quote.textContent = originalQuote;
+                });
+            });
+
+            // Ripple effect on node click
+            nodes.forEach(node => {
+                node.addEventListener('click', (e) => {
+                    const ripple = document.createElement('div');
+                    ripple.style.position = 'absolute';
+                    ripple.style.borderRadius = '50%';
+                    ripple.style.background = 'radial-gradient(circle, rgba(102, 126, 234, 0.6) 0%, transparent 70%)';
+                    ripple.style.width = '20px';
+                    ripple.style.height = '20px';
+                    ripple.style.left = (e.clientX - node.getBoundingClientRect().left - 10) + 'px';
+                    ripple.style.top = (e.clientY - node.getBoundingClientRect().top - 10) + 'px';
+                    ripple.style.pointerEvents = 'none';
+                    ripple.style.animation = 'ripple 0.6s ease-out';
+                    node.style.position = 'relative';
+                    node.appendChild(ripple);
+                    setTimeout(() => ripple.remove(), 600);
+                });
+            });
+
+            // Theme Toggle with transition effect
+            if (toggle) {
+                toggle.addEventListener('change', () => {
+                    body.style.transition = 'none';
+                    if (toggle.checked) {
+                        body.classList.remove('dark-theme');
+                        body.classList.add('light-theme');
+                    } else {
+                        body.classList.remove('light-theme');
+                        body.classList.add('dark-theme');
+                    }
+                    setTimeout(() => { body.style.transition = ''; }, 50);
+                    
+                    // Pulse effect on toggle
+                    const slider = toggle.nextElementSibling;
+                    slider.style.transform = 'scale(1.2)';
+                    setTimeout(() => { slider.style.transform = ''; }, 200);
+                });
+            }
+
+            // Mobile Menu Toggle
+            if (navToggle) {
+                navToggle.addEventListener('click', () => {
+                    navMenu.classList.toggle('active');
+                });
+            }
+
+            // Dropdown for mobile
+            if (techDropdown) {
+                techDropdown.addEventListener('click', (e) => {
+                    if (window.innerWidth <= 768 && e.target.classList.contains('nav-link')) {
+                        e.preventDefault();
+                        techDropdown.classList.toggle('active');
+                    }
+                });
+            }
+
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.navbar')) {
+                    navMenu.classList.remove('active');
+                }
+            });
+        });
+    </script>
 </body>
 </html>

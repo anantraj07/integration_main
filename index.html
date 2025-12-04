@@ -43,88 +43,104 @@
             height: 100%;
             z-index: -1;
             pointer-events: none;
-            opacity: 0.6;
+            overflow: hidden;
         }
 
         .shape {
             position: absolute;
-            opacity: 0.15;
-            animation: float-shape 15s infinite ease-in-out;
+            opacity: 0.25;
+            animation: float-shape 20s infinite ease-in-out;
         }
 
         .shape-1 {
-            width: 150px;
-            height: 150px;
-            border: 3px solid var(--accent-primary);
+            width: 200px;
+            height: 200px;
+            border: 4px solid var(--accent-primary);
             border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-            top: 15%;
-            left: 10%;
+            top: 10%;
+            left: 8%;
+            box-shadow: 0 0 60px var(--accent-primary);
         }
 
         .shape-2 {
-            width: 120px;
-            height: 120px;
-            border: 3px solid var(--accent-secondary);
+            width: 180px;
+            height: 180px;
+            border: 4px solid var(--accent-secondary);
             border-radius: 50%;
-            top: 60%;
-            right: 15%;
-            animation-delay: 3s;
+            top: 55%;
+            right: 10%;
+            animation-delay: 4s;
+            box-shadow: 0 0 60px var(--accent-secondary);
         }
 
         .shape-3 {
-            width: 100px;
-            height: 100px;
-            border: 3px solid var(--accent-primary);
+            width: 160px;
+            height: 160px;
+            border: 4px solid var(--accent-primary);
             transform: rotate(45deg);
-            bottom: 20%;
-            left: 60%;
-            animation-delay: 6s;
+            bottom: 15%;
+            left: 55%;
+            animation-delay: 8s;
+            box-shadow: 0 0 60px var(--accent-primary);
+        }
+        
+        .shape-4 {
+            width: 140px;
+            height: 140px;
+            border: 4px solid var(--accent-secondary);
+            border-radius: 40% 60% 70% 30% / 60% 30% 70% 40%;
+            top: 40%;
+            left: 20%;
+            animation-delay: 2s;
+            box-shadow: 0 0 60px var(--accent-secondary);
         }
 
         @keyframes float-shape {
             0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            33% { transform: translate(40px, -40px) rotate(120deg); }
-            66% { transform: translate(-30px, 40px) rotate(240deg); }
+            25% { transform: translate(50px, -50px) rotate(90deg); }
+            50% { transform: translate(-40px, 60px) rotate(180deg); }
+            75% { transform: translate(60px, 40px) rotate(270deg); }
         }
 
         .orb {
             position: absolute;
             border-radius: 50%;
-            filter: blur(100px);
-            animation: float-orb 20s infinite ease-in-out;
-            opacity: 0.2;
+            filter: blur(120px);
+            animation: float-orb 25s infinite ease-in-out;
+            opacity: 0.3;
         }
 
         .orb1 {
-            width: 400px;
-            height: 400px;
-            background: var(--accent-primary);
-            top: 10%;
-            left: 5%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--accent-primary) 0%, transparent 70%);
+            top: 5%;
+            left: -10%;
         }
 
         .orb2 {
-            width: 350px;
-            height: 350px;
-            background: var(--accent-secondary);
-            top: 50%;
-            right: 5%;
-            animation-delay: 7s;
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, var(--accent-secondary) 0%, transparent 70%);
+            top: 45%;
+            right: -10%;
+            animation-delay: 8s;
         }
 
         .orb3 {
-            width: 300px;
-            height: 300px;
-            background: var(--accent-primary);
-            bottom: 15%;
-            left: 50%;
-            animation-delay: 14s;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--accent-primary) 0%, transparent 70%);
+            bottom: 10%;
+            left: 45%;
+            animation-delay: 16s;
         }
 
         @keyframes float-orb {
             0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(50px, -60px) scale(1.15); }
-            66% { transform: translate(-40px, 50px) scale(0.85); }
+            25% { transform: translate(60px, -70px) scale(1.2); }
+            50% { transform: translate(-50px, 60px) scale(0.8); }
+            75% { transform: translate(70px, 50px) scale(1.1); }
         }
 
         .grid-overlay {
@@ -206,8 +222,12 @@
         .nav-menu {
             list-style: none;
             display: flex;
-            gap: 30px;
+            gap: 5px;
             align-items: center;
+        }
+        
+        .nav-item {
+            position: relative;
         }
 
         .nav-link {
@@ -216,28 +236,93 @@
             font-size: 0.95rem;
             font-weight: 500;
             transition: all 0.3s ease;
-            padding: 8px 0;
-            display: block;
-            position: relative;
+            padding: 10px 18px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            border-radius: 6px;
+            cursor: pointer;
         }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent-primary);
-            transition: width 0.3s ease;
-        }
-
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
+        
         .nav-link:hover { 
-            color: var(--accent-primary); 
+            color: var(--accent-primary);
+            background: rgba(255, 140, 0, 0.1);
+        }
+        
+        .dark-theme .nav-link:hover {
+            background: rgba(102, 126, 234, 0.1);
+        }
+        
+        .dropdown-arrow {
+            font-size: 0.7rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .nav-item:hover .dropdown-arrow {
+            transform: rotate(180deg);
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-radius: 8px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            border: 1px solid rgba(255, 140, 0, 0.2);
+            margin-top: 8px;
+        }
+        
+        .dark-theme .dropdown-menu {
+            background: rgba(20, 20, 20, 0.98);
+            border-color: rgba(102, 126, 234, 0.2);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        .nav-item:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown-item {
+            display: block;
+            padding: 12px 20px;
+            color: var(--theme-text);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(255, 140, 0, 0.1);
+            font-size: 0.9rem;
+        }
+        
+        .dark-theme .dropdown-item {
+            border-bottom-color: rgba(102, 126, 234, 0.1);
+        }
+        
+        .dropdown-item:last-child {
+            border-bottom: none;
+            border-radius: 0 0 8px 8px;
+        }
+        
+        .dropdown-item:first-child {
+            border-radius: 8px 8px 0 0;
+        }
+        
+        .dropdown-item:hover {
+            background: rgba(255, 140, 0, 0.1);
+            color: var(--accent-primary);
+            padding-left: 25px;
+        }
+        
+        .dark-theme .dropdown-item:hover {
+            background: rgba(102, 126, 234, 0.1);
         }
 
         .flow-wrapper {
@@ -279,7 +364,7 @@
 
         .node-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 50px;
             padding: 0 20px;
             max-width: 1200px;
@@ -550,9 +635,9 @@
 
             .nav-link {
                 padding: 18px 30px;
+                width: 100%;
+                justify-content: space-between;
             }
-
-            .nav-link::after { display: none; }
 
             .master-title {
                 font-size: 2rem;
@@ -572,9 +657,33 @@
             }
 
             .shape { display: none; }
+            
+            .dropdown-menu {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                box-shadow: none;
+                border: none;
+                background: transparent;
+                margin-top: 0;
+                padding-left: 20px;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease;
+            }
+            
+            .nav-item.mobile-active .dropdown-menu {
+                max-height: 300px;
+            }
+            
+            .dropdown-item {
+                padding: 12px 20px;
+                border-bottom: 1px solid rgba(255, 140, 0, 0.05);
+            }
         }
 
-        @media (min-width: 769px) and (max-width: 1024px) {
+        @media (min-width: 769px) and (max-width: 1100px) {
             .node-grid {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 40px;
@@ -588,6 +697,7 @@
         <div class="shape shape-1"></div>
         <div class="shape shape-2"></div>
         <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
         <div class="orb orb1"></div>
         <div class="orb orb2"></div>
         <div class="orb orb3"></div>
@@ -603,12 +713,39 @@
             </button>
             
             <ul class="nav-menu" id="navMenu">
-                <li class="nav-item"><a href="https://www.integrationfest.in/" class="nav-link">Home</a></li>
-                <li class="nav-item"><a href="https://www.integrationfest.in/tech" class="nav-link">Tech</a></li>
-                <li class="nav-item"><a href="https://www.integrationfest.in/cultural" class="nav-link">Cultural</a></li>
-                <li class="nav-item"><a href="https://www.integrationfest.in/sports" class="nav-link">Sports</a></li>
-                <li class="nav-item"><a href="https://www.integrationfest.in/gallery" class="nav-link">Gallery</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">About</a></li>
+                <li class="nav-item">
+                    <a href="https://www.integrationfest.in/" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item has-dropdown">
+                    <span class="nav-link">
+                        Tech <span class="dropdown-arrow">▼</span>
+                    </span>
+                    <div class="dropdown-menu">
+                        <a href="https://www.integrationfest.in/tech/coding" class="dropdown-item">Coding Events</a>
+                        <a href="https://www.integrationfest.in/tech/robotics" class="dropdown-item">Robotics</a>
+                        <a href="https://www.integrationfest.in/tech/hackathon" class="dropdown-item">Hackathon</a>
+                        <a href="https://www.integrationfest.in/tech/workshops" class="dropdown-item">Workshops</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="https://www.integrationfest.in/cultural" class="nav-link">Cultural</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://www.integrationfest.in/sports" class="nav-link">Sports</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://www.integrationfest.in/gallery" class="nav-link">Gallery</a>
+                </li>
+                <li class="nav-item has-dropdown">
+                    <span class="nav-link">
+                        About <span class="dropdown-arrow">▼</span>
+                    </span>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">Our Team</a>
+                        <a href="https://www.integrationfest.in/about/history" class="dropdown-item">History</a>
+                        <a href="https://www.integrationfest.in/about/contact" class="dropdown-item">Contact Us</a>
+                    </div>
+                </li>
             </ul>
         </div>
     </nav>
@@ -702,7 +839,7 @@
             </div>
         </div>
     </div>
-
+    
     <section class="theme-toggle-section">
         <div class="theme-toggle-wrapper">
             <div class="toggle-container">

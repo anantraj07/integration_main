@@ -4,7 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const body = document.body;
     const navToggle = document.getElementById('navToggle');
     const navMenu = document.getElementById('navMenu');
+    const dropdownTriggers = document.querySelectorAll('.dropdown-trigger');
 
+    // Title glitch effect
     const title = document.querySelector('.master-title');
     const originalText = title.textContent;
     const glitchChars = '!<>-_\\/[]{}—=+*^?#________';
@@ -21,9 +23,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     setInterval(glitchText, 3000);
 
+    // Parallax scroll effect
     let ticking = false;
     window.addEventListener('scroll', () => {
-        if (!ticking) {
+        if (!ticking && window.innerWidth > 768) {
             window.requestAnimationFrame(() => {
                 const scrolled = window.scrollY;
                 nodes.forEach((node, i) => {
@@ -36,28 +39,34 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Node hover effects
     nodes.forEach(node => {
         const quote = node.querySelector('.data-pulse p:first-child');
         const originalQuote = quote.textContent;
         let typeInterval;
         
         node.addEventListener('mouseenter', () => {
-            let index = 0;
-            quote.textContent = '';
-            typeInterval = setInterval(() => {
-                if (index < originalQuote.length) {
-                    quote.textContent += originalQuote[index++];
-                } else {
-                    clearInterval(typeInterval);
-                }
-            }, 30);
+            if (window.innerWidth > 768) {
+                let index = 0;
+                quote.textContent = '';
+                typeInterval = setInterval(() => {
+                    if (index < originalQuote.length) {
+                        quote.textContent += originalQuote[index++];
+                    } else {
+                        clearInterval(typeInterval);
+                    }
+                }, 30);
+            }
         });
         
         node.addEventListener('mouseleave', () => {
-            clearInterval(typeInterval);
-            quote.textContent = originalQuote;
+            if (window.innerWidth > 768) {
+                clearInterval(typeInterval);
+                quote.textContent = originalQuote;
+            }
         });
 
+        // Ripple effect on click
         node.addEventListener('click', (e) => {
             const ripple = document.createElement('div');
             ripple.style.cssText = `
@@ -76,6 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Theme toggle
     if (toggle) {
         toggle.addEventListener('change', () => {
             if (toggle.checked) {
@@ -92,15 +102,74 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Mobile menu toggle
     if (navToggle) {
-        navToggle.addEventListener('click', () => {
+        navToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
             navMenu.classList.toggle('active');
+            navToggle.classList.toggle('active');
         });
     }
 
+    // Mobile dropdown handling
+    dropdownTriggers.forEach(trigger => {
+        trigger.addEventListener('click', (e) => {
+            if (window.innerWidth <= 768) {
+                e.preventDefault();
+                e.stopPropagation();
+                const parent = trigger.closest('.nav-item');
+                parent.classList.toggle('active');
+                
+                // Close other dropdowns
+                document.querySelectorAll('.nav-item.has-dropdown').forEach(item => {
+                    if (item !== parent) {
+                        item.classList.remove('active');
+                    }
+                });
+            }
+        });
+    });
+
+    // Close menu when clicking outside
     document.addEventListener('click', (e) => {
-        if (!e.target.closest('.navbar')) {
+        // Close mobile menu
+        if (window.innerWidth <= 768) {
+            if (!e.target.closest('.navbar')) {
+                navMenu.classList.remove('active');
+                navToggle.classList.remove('active');
+            }
+            
+            // Close all dropdowns when clicking outside
+            if (!e.target.closest('.nav-item.has-dropdown')) {
+                document.querySelectorAll('.nav-item.has-dropdown').forEach(item => {
+                    item.classList.remove('active');
+                });
+            }
+        }
+    });
+
+    // Close dropdowns when clicking on a dropdown item
+    document.querySelectorAll('.dropdown-item').forEach(item => {
+        item.addEventListener('click', () => {
+            if (window.innerWidth <= 768) {
+                navMenu.classList.remove('active');
+                navToggle.classList.remove('active');
+                document.querySelectorAll('.nav-item.has-dropdown').forEach(item => {
+                    item.classList.remove('active');
+                });
+            }
+        });
+    });
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768) {
+            // Reset mobile states on desktop
             navMenu.classList.remove('active');
+            navToggle.classList.remove('active');
+            document.querySelectorAll('.nav-item.has-dropdown').forEach(item => {
+                item.classList.remove('active');
+            });
         }
     });
 });

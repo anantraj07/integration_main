@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const body = document.body;
     const navToggle = document.getElementById('navToggle');
     const navMenu = document.getElementById('navMenu');
-    const dropdownTriggers = document.querySelectorAll('.dropdown-trigger');
+    const dropdowns = document.querySelectorAll('.dropdown');
 
     // Title glitch effect
     const title = document.querySelector('.master-title');
@@ -111,51 +111,64 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Mobile dropdown handling
-    dropdownTriggers.forEach(trigger => {
-        trigger.addEventListener('click', (e) => {
-            if (window.innerWidth <= 768) {
-                e.preventDefault();
-                e.stopPropagation();
-                const parent = trigger.closest('.nav-item');
-                parent.classList.toggle('active');
-                
-                // Close other dropdowns
-                document.querySelectorAll('.nav-item.has-dropdown').forEach(item => {
-                    if (item !== parent) {
-                        item.classList.remove('active');
-                    }
-                });
-            }
+    // Desktop dropdown handling
+    if (window.innerWidth > 768) {
+        dropdowns.forEach(dropdown => {
+            dropdown.addEventListener('mouseenter', () => {
+                dropdown.classList.add('active');
+            });
+            
+            dropdown.addEventListener('mouseleave', () => {
+                dropdown.classList.remove('active');
+            });
         });
+    }
+
+    // Mobile dropdown handling
+    dropdowns.forEach(dropdown => {
+        const toggle = dropdown.querySelector('.dropdown-toggle');
+        if (toggle) {
+            toggle.addEventListener('click', (e) => {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    dropdown.classList.toggle('active');
+                    
+                    // Close other dropdowns
+                    dropdowns.forEach(item => {
+                        if (item !== dropdown) {
+                            item.classList.remove('active');
+                        }
+                    });
+                }
+            });
+        }
     });
 
     // Close menu when clicking outside
     document.addEventListener('click', (e) => {
-        // Close mobile menu
         if (window.innerWidth <= 768) {
             if (!e.target.closest('.navbar')) {
                 navMenu.classList.remove('active');
                 navToggle.classList.remove('active');
             }
             
-            // Close all dropdowns when clicking outside
-            if (!e.target.closest('.nav-item.has-dropdown')) {
-                document.querySelectorAll('.nav-item.has-dropdown').forEach(item => {
-                    item.classList.remove('active');
+            if (!e.target.closest('.dropdown')) {
+                dropdowns.forEach(dropdown => {
+                    dropdown.classList.remove('active');
                 });
             }
         }
     });
 
-    // Close dropdowns when clicking on a dropdown item
-    document.querySelectorAll('.dropdown-item').forEach(item => {
+    // Close dropdowns when clicking on a dropdown link
+    document.querySelectorAll('.dropdown-link').forEach(item => {
         item.addEventListener('click', () => {
             if (window.innerWidth <= 768) {
                 navMenu.classList.remove('active');
                 navToggle.classList.remove('active');
-                document.querySelectorAll('.nav-item.has-dropdown').forEach(item => {
-                    item.classList.remove('active');
+                dropdowns.forEach(dropdown => {
+                    dropdown.classList.remove('active');
                 });
             }
         });
@@ -167,8 +180,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // Reset mobile states on desktop
             navMenu.classList.remove('active');
             navToggle.classList.remove('active');
-            document.querySelectorAll('.nav-item.has-dropdown').forEach(item => {
-                item.classList.remove('active');
+            dropdowns.forEach(dropdown => {
+                dropdown.classList.remove('active');
             });
         }
     });
